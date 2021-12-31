@@ -11,14 +11,35 @@ in
   ];
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    #systemd-boot.enable = true;
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot";
+    };
+    grub = {
+      devices = [ "nodev" ];
+      efiSupport = true;
+      enable = true;
+      extraEntries = ''
+        menuentry "Hackintosh BOOTx64" {
+          insmod part_gpt
+          insmod fat
+          insmod search_fs_uuid
+          insmod chain
+          search --fs-uuid --set=root 0AAD-D8F2
+          chainloader /EFI/BOOT/BOOTx64.efi
+        }
+      '';
+      version = 2;
+      #useOSProber = true;
+    };
+  };
 
   networking = {
     hostName = hostname;
-    domain = "local.cwzhou.win"
+    domain = "local.cwzhou.win";
     useDHCP = false;
-    dhcpcd.enable = false;
     interfaces.enp6s0.ipv4.addresses = [{
         address = "192.168.199.19";
         prefixLength = 28;

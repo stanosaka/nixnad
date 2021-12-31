@@ -73,8 +73,6 @@
       xorg.xrandr
       xclip
 
-      # games
-      steamcmd
 
       # gnome stuff
       gnome.gnome-tweaks
