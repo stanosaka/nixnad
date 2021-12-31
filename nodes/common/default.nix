@@ -97,18 +97,6 @@
     initrd.verbose = false;
     plymouth.enable = true;
     loader.timeout = 0;
-    loader = {
-      grub.enable = true;
-      grub.version = 2;
-      grub.efiSupport = true;
-      grub.device = "nodev"; # or "nodev" for efi only
-      grub.splashImage = ./boot_wallpaper.jpg;
-      grub.useOSProber = true;
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
-      };
-    };
     supportedFilesystems = [ "ntfs" "btrfs" ];
     cleanTmpDir = true;
     kernel.sysctl = {
